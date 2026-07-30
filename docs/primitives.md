@@ -11,7 +11,7 @@ An **Environment** is a named, reusable baseline for a coding agent:
 - **Encrypted secrets** - key/value env vars, encrypted per-tenant with AES-256-GCM. Write-only: once stored, the API never returns a value (listing returns keys and timestamps only).
 - **Plain env vars** - a non-secret `env_vars` map for values that aren't sensitive (feature flags, endpoints). Returned by the API as-is; put anything sensitive in secrets instead.
 - **Runtime config** - packages to install, repos to clone, a setup script
-- **Networking policy** - `networking_type: unrestricted` or `limited`, with an optional `networking_config` map refining what `limited` allows
+- **Networking policy** - `networking_type: unrestricted` or `limited`. Sprites are open by default, so `unrestricted` is a no-op. `limited` restricts egress to the domains in `networking_config.allowed_hosts` (the only `networking_config` key honored today); under `limited` with no `allowed_hosts`, nothing is allowlisted.
 
 Environments attach to Agents at creation time. Many agents can share one environment.
 
